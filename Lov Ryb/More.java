@@ -19,6 +19,16 @@ public class More extends World
         super(12, 9, 100);
         this.hrac=new Hrac("w", "d", "s", "a","p1_hore.png", "p1_vpravo.png", "p1_dole.png", "p1_vlavo.png");
         this.addObject(this.hrac,1,1);
-        this.addObject(new Ryba(),9,7);
+        this.pridajRybu();
+    }
+    public void pridajRybu(){
+    this.pridajObjekt(new Ryba ());
+    }
+    public void pridajObjekt(Actor objekt){
+    int x=0;
+    int y=0;
+    x=1+Greenfoot.getRandomNumber(this.getWidth()-2);
+    y=1+Greenfoot.getRandomNumber(this.getHeight()-2);
+    this.addObject(objekt,x,y);
     }
 }
