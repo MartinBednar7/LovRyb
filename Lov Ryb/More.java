@@ -22,13 +22,13 @@ public class More extends World
         this.pridajRybu();
     }
     public void pridajRybu(){
-    this.pridajObjekt(new Ryba ());
+    this.pridajObjekt(new Ryba (10));
     }
     public void pridajObjekt(Actor objekt){
     int x=0;
     int y=0;
-    x=1+Greenfoot.getRandomNumber(this.getWidth()-2);
-    y=1+Greenfoot.getRandomNumber(this.getHeight()-2);
+    x=0+Greenfoot.getRandomNumber(this.getWidth()-1);
+    y=0+Greenfoot.getRandomNumber(this.getHeight()-1);
     this.addObject(objekt,x,y);
     }
 }

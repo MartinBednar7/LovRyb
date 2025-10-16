@@ -16,6 +16,7 @@ public class Hrac extends Actor
     private String obrazokVpravo;
     private String obrazokDole;
     private String obrazokVlavo;
+    private int body;
     public Hrac(String pohybHore, String pohybVpravo, String pohybDole, String pohybVlavo,String obrazokHore, String obrazokVpravo, String obrazokDole, String obrazokVlavo ){
         this.pohybHore=pohybHore;
         this.pohybVpravo=pohybVpravo;
@@ -25,6 +26,7 @@ public class Hrac extends Actor
         this.obrazokVpravo=obrazokVpravo;
         this.obrazokDole=obrazokDole;
         this.obrazokVlavo=obrazokVlavo;
+        this.body=0;
     }
     /**
      * Act - do whatever the Zralok wants to do. This method is called whenever
@@ -64,8 +66,8 @@ public class Hrac extends Actor
         //otestuj, či je políčko bez kameňov!
         //ak áno, tak vráť hodnotu true
         //ak nie, tak vráť hodnotu false
-        World luka=this.getWorld();
-        if(x<0||y<0||x>=luka.getWidth()||y>=luka.getHeight()){
+        World lovRyb=this.getWorld();
+        if(x<0||y<0||x>=lovRyb.getWidth()||y>=lovRyb.getHeight()){
             return false;
         } else {
             return true;

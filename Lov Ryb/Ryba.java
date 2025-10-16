@@ -10,9 +10,11 @@ public class Ryba extends Actor
 {
     private int meskanie;
     private int pocitadloMeskania;
-    public Ryba(){
+    private int body;
+    public Ryba(int body){
         this.meskanie=5;
         this.pocitadloMeskania=0;
+        this.body=body;
     }
 
     /**
