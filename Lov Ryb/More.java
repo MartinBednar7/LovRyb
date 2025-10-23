@@ -9,6 +9,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class More extends World
 {
     private Hrac hrac;
+    private int casNaDalsiuRybu;
+    private int pocitadloVytvoreniaRyby;
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -17,18 +19,29 @@ public class More extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(12, 9, 100);
-        this.hrac=new Hrac("w", "d", "s", "a","p1_hore.png", "p1_vpravo.png", "p1_dole.png", "p1_vlavo.png");
-        this.addObject(this.hrac,1,1);
-        this.pridajRybu();
+        this.hrac = new Hrac();
+        this.addObject(this.hrac, 7, 4);
+        this.vytvorRybu();
+        this.casNaDalsiuRybu = 200;
+        this.pocitadloVytvoreniaRyby = 0;
     }
-    public void pridajRybu(){
-    this.pridajObjekt(new Ryba (10));
+
+    public void act() {
+        if (this.casNaDalsiuRybu == this.pocitadloVytvoreniaRyby) {
+            this.vytvorRybu();
+            this.casNaDalsiuRybu = 100 + Greenfoot.getRandomNumber(300);
+            this.pocitadloVytvoreniaRyby = 0;
+        } else {
+            this.pocitadloVytvoreniaRyby++;
+        }
     }
-    public void pridajObjekt(Actor objekt){
-    int x=0;
-    int y=0;
-    x=0+Greenfoot.getRandomNumber(this.getWidth()-1);
-    y=0+Greenfoot.getRandomNumber(this.getHeight()-1);
-    this.addObject(objekt,x,y);
+
+    private void vytvorRybu() {
+        this.addObject(new Ryba(15, 150 + Greenfoot.getRandomNumber(200), Greenfoot.getRandomNumber(2) == 0), Greenfoot.getRandomNumber(this.getHeight()), Greenfoot.getRandomNumber(this.getHeight()));
+    }
+
+    public void rybaZjedena(Ryba ryba) {
+        this.hrac.pridajBody(ryba.dajBody());
+        this.removeObject(ryba);
     }
 }

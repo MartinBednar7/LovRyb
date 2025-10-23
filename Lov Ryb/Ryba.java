@@ -8,44 +8,52 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Ryba extends Actor
 {
-    private int meskanie;
-    private int pocitadloMeskania;
     private int body;
-    public Ryba(int body){
-        this.meskanie=5;
-        this.pocitadloMeskania=0;
-        this.body=body;
+    private int casDoOdplavania;
+    public Ryba(int body, int casDoOdplavania, boolean ideVlavo) {
+        this.body = body;
+        this.casDoOdplavania = casDoOdplavania;
+        if (ideVlavo) {
+            this.setRotation(180);
+            this.zmenObrazok();
+        }
     }
-
+    
     /**
      * Act - do whatever the Ryba wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
     {
-        if(this.meskanie==this.pocitadloMeskania){
-            if (this.jeNaKraji()) {
-                this.turn(180);
-            }
-            this.move(1);
-            this.pocitadloMeskania=0;
-        }else{
-            this.pocitadloMeskania+=1;
+        this.hybSa();
+        this.zmenObrazok();
+        if (!this.getWorld().getObjectsAt(this.getX(), this.getY(), Hrac.class).isEmpty()) {
+            More m = (More) this.getWorld();
+            m.rybaZjedena(this);
+            return;
         }
-        switch(this.getRotation()){
-            case 0:{
-                    this.setImage("ryba.png");
-                    break;
-            }
-            case 180:{
-                    this.setImage("ryba_vlavo.png");
-                    break;
-            }
+        this.casDoOdplavania--;
+        if (this.casDoOdplavania == 0) {
+            this.getWorld().removeObject(this);
         }
-
     }
-
-    public boolean jeNaKraji(){
-        return this.getX() == this.getWorld().getWidth()-1 || this.getX() == 0;
+    
+    private void hybSa() {
+        this.move(1);
+        if (this.getX() == 0 || this.getX() == this.getWorld().getWidth() - 1) {
+            this.turn(180);
+        }
+    }
+    
+    private void zmenObrazok() {
+        if (this.getRotation() == 0) {
+            this.setImage("ryba.png");
+        } else if (this.getRotation() == 180) {
+            this.setImage("ryba_vlavo.png");
+        }
+    }
+    
+    public int dajBody() {
+        return this.body;
     }
 }

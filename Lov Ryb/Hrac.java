@@ -8,91 +8,61 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Hrac extends Actor
 {
-    private String pohybHore;
-    private String pohybVpravo;
-    private String pohybDole;
-    private String pohybVlavo;
-    private String obrazokHore;
-    private String obrazokVpravo;
-    private String obrazokDole;
-    private String obrazokVlavo;
     private int body;
-    public Hrac(String pohybHore, String pohybVpravo, String pohybDole, String pohybVlavo,String obrazokHore, String obrazokVpravo, String obrazokDole, String obrazokVlavo ){
-        this.pohybHore=pohybHore;
-        this.pohybVpravo=pohybVpravo;
-        this.pohybDole=pohybDole;
-        this.pohybVlavo=pohybVlavo;
-        this.obrazokHore=obrazokHore;
-        this.obrazokVpravo=obrazokVpravo;
-        this.obrazokDole=obrazokDole;
-        this.obrazokVlavo=obrazokVlavo;
-        this.body=0;
+    private int oneskorenie;
+    private int casovacOneskorenia;
+    public Hrac(){
+        this.body = 0;
+        this.oneskorenie = 3;
+        this.casovacOneskorenia = 0;
     }
+
     /**
      * Act - do whatever the Zralok wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
     {
-        this.pohybujSaKlavesami();
-        this.nastavObrazok();
-    }
-    private void pohybujSaKlavesami()
-    {
-        int x=this.getX();
-        int y=this.getY();
-        if(Greenfoot.isKeyDown(this.pohybVpravo)){
-            setRotation(0);
-            x=x+1;
-        }
-        if(Greenfoot.isKeyDown(this.pohybDole)){
-            setRotation(90);
-            y=y+1;
-        }
-        if(Greenfoot.isKeyDown(this.pohybVlavo)){
-            setRotation(180);
-            x=x-1;
-        }
-        if(Greenfoot.isKeyDown(this.pohybHore)){
-            setRotation(270);
-            y=y-1;
-        }
-        if(this.mozeVstupit(x,y)){
-            this.setLocation(x,y);
-        }
-    }
-    
-    private boolean mozeVstupit(int x, int y){
-        //otestuj, či je políčko bez kameňov!
-        //ak áno, tak vráť hodnotu true
-        //ak nie, tak vráť hodnotu false
-        World lovRyb=this.getWorld();
-        if(x<0||y<0||x>=lovRyb.getWidth()||y>=lovRyb.getHeight()){
-            return false;
+        if (this.casovacOneskorenia == this.oneskorenie) {
+            this.hybSa();
+            this.zmenObrazok();
+            this.casovacOneskorenia = 0;
         } else {
-            return true;
+            this.casovacOneskorenia++;
+        }
+    }
+
+    private void hybSa() {
+        if (Greenfoot.isKeyDown("w")) {
+            this.setRotation(270);
+            this.move(1);
+        } else if (Greenfoot.isKeyDown("s")) {
+            this.setRotation(90);
+            this.move(1);
+        } else if (Greenfoot.isKeyDown("a")) {
+            this.setRotation(180);
+            this.move(1);
+        } else if (Greenfoot.isKeyDown("d")) {
+            this.setRotation(0);
+            this.move(1);
+        }
+    }
+
+    private void zmenObrazok() {
+        switch (this.getRotation()) {
+            case 0: case 90: case 270: {
+                    this.setImage("p1_vpravo.png");
+                    break;
+                }
+            case 180: {
+                    this.setImage("p1_vlavo.png");
+                    break;
+                }
         }
     }
     
-    private void nastavObrazok(){
-        switch(this.getRotation()){
-            case 0: {
-                    this.setImage(this.obrazokVpravo);
-                    break;
-                }
-            case 90:{
-                    this.setImage(this.obrazokDole);
-                    break;
-                }
-            case 180:{
-                    this.setImage(this.obrazokVlavo);
-                    break;
-                }
-            case 270:{
-                    this.setImage(this.obrazokHore);
-                    break;
-                }
-        }
+    public void pridajBody(int body) {
+        this.body += body;
     }
 }
 
