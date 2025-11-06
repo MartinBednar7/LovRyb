@@ -9,12 +9,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Hrac extends Actor
 {
     private int body;
-    private int oneskorenie;
-    private int casovacOneskorenia;
+    private int meskanie;
+    private int pocitadloMeskania;
+    private PocitadloBodov pocitadlo;
     public Hrac(){
-        this.body = 0;
-        this.oneskorenie = 3;
-        this.casovacOneskorenia = 0;
+        this.pocitadloMeskania = 0;
+        this.meskanie = 3;
     }
 
     /**
@@ -23,12 +23,12 @@ public class Hrac extends Actor
      */
     public void act()
     {
-        if (this.casovacOneskorenia == this.oneskorenie) {
+        if (this.pocitadloMeskania == this.meskanie) {
             this.hybSa();
             this.zmenObrazok();
-            this.casovacOneskorenia = 0;
+            this.pocitadloMeskania = 0;
         } else {
-            this.casovacOneskorenia++;
+            this.pocitadloMeskania+=1;
         }
     }
 
@@ -63,6 +63,13 @@ public class Hrac extends Actor
     
     public void pridajBody(int body) {
         this.body += body;
+        if (this.pocitadlo != null) {
+        this.pocitadlo.setValue(this.body);
+        }
+    }
+    
+    public void pridajPocitadlo(PocitadloBodov pocitadlo){
+        this.pocitadlo=pocitadlo;
     }
 }
 
