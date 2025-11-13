@@ -9,12 +9,15 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class More extends World
 {
     private Hrac hrac;
+    private Predator predator;
     private int casNaDalsiuRybu;
     private int pocitadloVytvoreniaRyby;
     private PocitadloBodov pocitadlo;
     private PocitadloBodov zobrazovacCasu;
     private int maxCas;
     private SimpleTimer casovac;
+    
+    
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -25,6 +28,8 @@ public class More extends World
         super(12, 9, 100);
         this.hrac = new Hrac();
         this.addObject(this.hrac, 7, 4);
+        this.predator = new Predator();
+        this.addObject(this.predator,2, 2);
         this.vytvorRybu();
         this.casNaDalsiuRybu = 200;
         this.pocitadloVytvoreniaRyby = 0;
@@ -38,6 +43,7 @@ public class More extends World
         this.addObject(this.zobrazovacCasu,this.getWidth()/2,0);
         this.casovac=new SimpleTimer();
         this.casovac.mark();
+        
         
     }
 
@@ -65,5 +71,5 @@ public class More extends World
         this.removeObject(ryba);
     }
     
-    
+   
 }
