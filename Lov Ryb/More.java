@@ -12,6 +12,9 @@ public class More extends World
     private int casNaDalsiuRybu;
     private int pocitadloVytvoreniaRyby;
     private PocitadloBodov pocitadlo;
+    private PocitadloBodov zobrazovacCasu;
+    private int maxCas;
+    private SimpleTimer casovac;
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -29,6 +32,13 @@ public class More extends World
         this.pocitadlo=new PocitadloBodov();
         this.addObject(this.pocitadlo, 3, 0);
         this.hrac.pridajPocitadlo(this.pocitadlo);
+        this.zobrazovacCasu=new PocitadloBodov();
+        this.zobrazovacCasu.setPrefix("Cas: ");
+        this.maxCas=20;
+        this.addObject(this.zobrazovacCasu,this.getWidth()/2,0);
+        this.casovac=new SimpleTimer();
+        this.casovac.mark();
+        
     }
 
     public void act() {
@@ -39,6 +49,11 @@ public class More extends World
         } else {
             this.pocitadloVytvoreniaRyby++;
         }
+        
+        if(this.casovac.millisElapsed()/1000>=this.maxCas){
+            Greenfoot.stop();
+        }
+        this.zobrazovacCasu.setValue(this.casovac.millisElapsed()/1000);
     }
 
     private void vytvorRybu() {
@@ -49,4 +64,6 @@ public class More extends World
         this.hrac.pridajBody(ryba.dajBody());
         this.removeObject(ryba);
     }
+    
+    
 }
